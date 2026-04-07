@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oobeo User Guide</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:'Source Sans 3','Segoe UI',sans-serif;color:#1e293b;line-height:1.7}h1,h2,h3,h4{line-height:1.3}h2{margin-top:56px}h3{margin-top:48px}p{margin:0 0 28px}a{color:#2563eb;text-decoration:none}a:hover{text-decoration:underline}code{background:#f1f5f9;padding:2px 8px;border-radius:4px;font-size:13px;font-family:'SF Mono',Consolas,monospace}details summary::-webkit-details-marker{display:none}details summary{list-style:none}details summary::before{content:'\25B6';display:inline-block;margin-right:8px;font-size:10px;transition:transform .2s;color:#94a3b8}details[open] summary::before{transform:rotate(90deg)}.ss{border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;margin:24px -40px 36px;box-shadow:0 2px 8px rgba(0,0,0,.06)}.ss img{width:100%;display:block;cursor:pointer;transition:opacity .15s}.ss img:hover{opacity:.92}.ss .cap{padding:10px 14px;background:#f8fafc;font-size:13px;color:#64748b;border-top:1px solid #e2e8f0;line-height:1.5}table{border-collapse:collapse;width:100%;margin:16px 0 32px;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0}th{background:#1e293b;color:#fff;padding:10px 14px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}td{padding:10px 14px;border-bottom:1px solid #f1f5f9;font-size:14px;line-height:1.5}tr:nth-child(even) td{background:#f8fafc}.badge-admin{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600;background:#fef3c7;color:#92400e;border:1px solid #fde68a}.callout{padding:16px 18px;border-radius:8px;margin:24px 0 32px;font-size:14px;line-height:1.6}.callout-admin{background:#fefce8;border:1px solid #fde68a;color:#854d0e}.callout-info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}.callout-tip{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}.callout-warning{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}.nav-section{display:block;text-decoration:none;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;color:#cbd5e1;transition:background .15s,color .15s;cursor:pointer}.nav-section:hover{background:#1e293b;color:#fff;text-decoration:none}.nav-section.active{background:#334155;color:#fff}.nav-child{display:block;text-decoration:none;padding:5px 10px;border-radius:6px;font-size:12px;color:#94a3b8;transition:background .15s,color .15s;cursor:pointer}.nav-child:hover{background:#334155;color:#e2e8f0;text-decoration:none}.nav-child.active{background:#475569;color:#fff;font-weight:600}.ptab{padding:8px 16px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}.ptab.active-permits{background:#2563eb;color:#fff}.ptab.active-valet{background:#059669;color:#fff}.ptab.active-ondemand{background:#7c3aed;color:#fff}.ptab.inactive{background:#1e293b;color:#64748b}.ptab.inactive:hover{background:#334155;color:#cbd5e1}.concept{display:flex;gap:12px;padding:14px 16px;background:#f8fafc;border-radius:8px;margin:12px 0}.concept strong{color:#1e293b;min-width:140px;flex-shrink:0}.concept span{color:#475569;line-height:1.5}.search-hit:hover{background:#f8fafc !important}
+</style>
+</head>
+<body>
+<div style="display:flex;height:100vh">
+<aside id="sidebar" style="width:280px;flex-shrink:0;background:#0f172a;color:#fff;overflow-y:auto;overflow-x:hidden">
+<div style="padding:20px;min-width:280px">
+<img src="images/justpark-logo.png" alt="JustPark" style="height:26px;margin-bottom:10px">
+<h1 style="font-size:17px;font-weight:700;margin:0">Oobeo User Guide</h1>
+<p style="font-size:11px;color:#64748b;margin:4px 0 0">Permits &middot; Valet &middot; On-Demand</p>
+<div style="margin:20px 0 16px">
+<a href="#s-platform" onclick="navTo('s-platform',event)" style="display:block;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;color:#cbd5e1;background:#1e293b;text-decoration:none;margin-bottom:8px;text-align:center;transition:background .15s,color .15s" onmouseover="this.style.background='#334155';this.style.color='#fff'" onmouseout="this.style.background='#1e293b';this.style.color='#cbd5e1'">Platform Overview</a>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+<button onclick="setProduct('permits')" class="ptab" id="ptab-permits" style="width:100%">Permits</button>
+<button onclick="setProduct('valet')" class="ptab" id="ptab-valet" style="width:100%;opacity:0.4">Valet <span style="font-size:10px;font-weight:400">(Coming Soon)</span></button>
+<button onclick="setProduct('ondemand')" class="ptab" id="ptab-ondemand" style="width:100%;opacity:0.4">On-Demand <span style="font-size:10px;font-weight:400">(Coming Soon)</span></button>
+</div>
+</div>
+<nav id="nav"></nav>
+</div>
+</aside>
+<main id="main" style="flex:1;overflow-y:auto">
+<div style="position:sticky;top:0;z-index:10;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid #e2e8f0;padding:10px 24px;display:flex;align-items:center;gap:12px">
+<button onclick="document.getElementById('sidebar').style.display=document.getElementById('sidebar').style.display==='none'?'block':'none'" style="padding:6px;border:none;background:none;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+<span style="font-size:14px;font-weight:600;color:#334155" id="topbar-title">Oobeo User Guide</span>
+<div style="position:relative;margin-left:auto;margin-right:12px;flex:0 1 280px">
+<input id="search-input" type="text" placeholder="Search the guide..." style="width:100%;padding:6px 12px 6px 32px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#334155;background:#f8fafc;outline:none;font-family:inherit" onfocus="this.style.borderColor='#2563eb';this.style.background='#fff'" onblur="setTimeout(()=>{this.style.borderColor='#e2e8f0';this.style.background='#f8fafc';document.getElementById('search-results').style.display='none'},200)">
+<svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+<div id="search-results" style="display:none;position:absolute;top:100%;left:0;right:0;margin-top:4px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);max-height:320px;overflow-y:auto;z-index:100"></div>
+</div>
+<span style="margin-left:auto;background:#f1f5f9;color:#64748b;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:500;border:1px solid #e2e8f0">v1.0 — Permits</span>
+</div>
+<div style="max-width:840px;margin:0 auto;padding:32px 32px 80px">
+
+<!-- PLATFORM OVERVIEW -->
+<div id="s-platform" data-section="platform">
+<span style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#94a3b8;font-weight:600">Platform</span>
+<h1 style="font-size:32px;font-weight:700;color:#0f172a;margin:4px 0 16px">Oobeo Platform Overview</h1>
+
+<div id="s-what-is">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:32px">What Is Oobeo?</h2>
+<p>Oobeo is a parking operations platform that runs permits, valet, and self-serve transient parking from a single dashboard. One account covers any number of locations with shared reporting, a consolidated customer database, and unified payment processing.</p>
+<p>The platform is built for configurability. Rates can be stacked, scheduled, and capped. Validations can be generated in bulk, scoped to specific parking types, and set to auto-rotate codes daily or weekly. Locations can run multiple products simultaneously. Surcharges, taxes, and enforcement integrations are all configured per location. The consumer experience is web based and browser agnostic, so parking customers never need to download an app. Everything from the first customer touchpoint to the final receipt is configurable from the admin dashboard.</p>
+<p>This guide covers three Oobeo products:</p>
+<table><tr><th>Product</th><th>What It Does</th></tr>
+<tr><td><strong>Permits</strong></td><td>Recurring parking permits with applications, billing, AR, and a self-serve customer portal. Built on a modern React frontend.</td></tr>
+<tr><td><strong>Valet</strong></td><td>Full vehicle lifecycle management (receive, park, request, deliver) with mobile app for attendants and text-based consumer experience.</td></tr>
+<tr><td><strong>On-Demand</strong></td><td>Self-serve transient parking via QR code or text-to-park. No attendant required.</td></tr></table>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:28px">How to Use This Guide</h3>
+<p>Use the product tabs in the left sidebar to switch between Permits, Valet, and On-Demand. The sidebar navigates within each product. Platform Overview (this section) is always visible regardless of which product you're viewing, since it covers shared concepts like <a href="#s-location-setup" onclick="navTo('s-location-setup',event)">Location Settings</a> and <a href="#s-concepts" onclick="navTo('s-concepts',event)">Key Concepts</a> that apply across all products.</p>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:28px">The Oobeo Toolset</h3>
+<p>Operators and parkers interact with Oobeo through three interfaces:</p>
+<table><tr><th>Interface</th><th>Who Uses It</th><th>What It Does</th></tr>
+<tr><td><strong>Admin Dashboard</strong></td><td>Operators, managers, finance</td><td>Web-based. Configure locations, manage rates, view reports, handle billing, and administer user accounts. This is where most of the day-to-day management happens. All operators self-administer their Oobeo environment after initial setup and training.</td></tr>
+<tr><td><strong>Mobile App</strong></td><td>Valet attendants, lot attendants</td><td>iOS and Android (BYOD). Used for on-the-ground operations: receiving vehicles, processing payments via Bluetooth card reader, managing the valet queue. Required for Valet operations, optional for Attendant-mode On Demand.</td></tr>
+<tr><td><strong>Consumer Mobile Web</strong></td><td>Parkers</td><td>No app download required. Parkers pay for parking, request their vehicle, manage permits, and view receipts through secure mobile web pages. Accessed via SMS links, QR codes, or direct URLs on signage.</td></tr></table>
+<p>This guide covers the Admin Dashboard. The mobile app and consumer experience are referenced within the relevant product sections.</p>
+</div>
+
+<div id="s-logging-in">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:40px">Logging In and Orientation</h2>
+<p>The admin dashboard is accessed at <strong>vale.to/admin/login</strong>. Enter your email and password to log in.</p>
+<div class="ss"><img src="images/00-login-page.png" alt="Oobeo Login Page"><div class="cap">The Oobeo admin login page at vale.to/admin/login. Enter your email and password. "Forgotten password?" link for self-serve password resets. Footer links to Support, Privacy Policy, and Terms and Conditions.</div></div>
+<p>Once logged in, the left sidebar provides access to all products and settings:</p>
+<ul style="padding-left:24px;margin:12px 0">
+<li><strong>Location Settings</strong> — create and configure locations (shared across all products, see <a href="#s-location-setup" onclick="navTo('s-location-setup',event)">Location Settings</a> below)</li>
+<li><strong>Valet</strong> — valet ticket reporting and dashboards</li>
+<li><strong>Self Parking</strong> — on-demand parking reporting</li>
+<li><strong>Permits</strong> — the Permits v2 application (modern React interface with its own tab bar)</li>
+<li><strong>Reports</strong> — cross-product reporting</li>
+<li><strong>Users</strong> — user account management</li>
+</ul>
+<div class="ss"><img src="images/v-11-admin-dashboard.png" alt="Admin Dashboard"><div class="cap">The Oobeo client admin dashboard. The sidebar lists all available product sections. The main area shows 11 KPIs filterable by location and date range. This is what an operator admin sees after logging in.</div></div>
+<p>The dashboard shows key metrics at a glance: Total Transactions, Unique Visits, Total Payments, Parking Fees, Tax, Surcharges, Tips, Waived Revenue, Validations, Average Rating, and Conversion Rate. Use the location filter and date picker to scope the data.</p>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:28px">User Roles</h3>
+<p>Access is controlled by a seven-level role hierarchy. The role determines what each person can see and do:</p>
+<table><tr><th>Role</th><th>Dashboard Access</th><th>Mobile App</th><th>Typical User</th></tr>
+<tr><td>Valet</td><td>No</td><td>Yes (operate)</td><td>Frontline attendant</td></tr>
+<tr><td>Valet Manager</td><td>No</td><td>Yes (operate + void + reports)</td><td>Shift supervisor</td></tr>
+<tr><td>Admin</td><td>Yes (assigned locations)</td><td>Yes</td><td>Location manager</td></tr>
+<tr><td>Report Admin</td><td>Yes (read-only reports)</td><td>No</td><td>Finance, oversight</td></tr>
+<tr><td>Client Admin</td><td>Yes (full + company settings)</td><td>Yes</td><td>Parking director, IT admin</td></tr>
+<tr><td>Regional Admin</td><td>Yes (multi-location aggregate)</td><td>Yes</td><td>Regional manager</td></tr>
+<tr><td>SuperAdmin</td><td>Full platform (JustPark internal)</td><td>Yes</td><td>JustPark support</td></tr></table>
+<p>Users can be scoped to specific locations. A Valet assigned to "Hotel Location" only sees that location in the app. A user with no location assignments has access to all locations under that operator.</p>
+</div>
+
+<div id="s-location-setup">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:40px">Location Settings</h2>
+<p>Every Oobeo product starts with a location. Location Settings (in the sidebar) is where you create new locations and configure foundational settings that apply across all products.</p>
+<div class="ss"><img src="images/v-13-locations-client.png" alt="Location Grid"><div class="cap">The Location Settings grid. Each location appears as a card with OPEN/CLOSED status. Click "Add Location" to create a new one, or click any card to configure it. Status and tag filters help manage large location portfolios.</div></div>
+<p>Inside a location, the settings panel has seven sections in the left nav:</p>
+<table><tr><th>Section</th><th>What It Controls</th></tr>
+<tr><td><strong>Basic Info</strong></td><td>Location name, address, timezone, tags, which products are enabled (Valet/Self Parking/Permits), logo, and T&Cs</td></tr>
+<tr><td><strong>Options</strong></td><td>Six sub-tabs of per-location feature toggles: Valet, Payments, Mobile App, Reservations, Enforcement, Scheduled Reports</td></tr>
+<tr><td><strong>Messaging</strong></td><td>SMS configuration: automated valet messages, custom criteria-based messages, canned templates for staff</td></tr>
+<tr><td><strong>Rates & Fees</strong></td><td>Rate builder for standard rates, event rates, surcharges, and taxes</td></tr>
+<tr><td><strong>Validations</strong></td><td>Discount and free-parking rules for qualified parkers</td></tr>
+<tr><td><strong>Valet Alerts</strong></td><td>Inbound SMS alerts for valet operations</td></tr>
+<tr><td><strong>Merchant Acct.</strong></td><td>Payment processor configuration for this location</td></tr></table>
+<div class="ss"><img src="images/v-14-location-details.png" alt="Location Details"><div class="cap">Inside a location: Basic Info > Location Details. The three Parking Options checkboxes at top (Valet Parking, Self Parking, Parking Permits) control which products are active at this location. Below: Location Name, Timezone, and Tags for grouping.</div></div>
+<p>Locations can be cloned. If you're setting up a new facility that's similar to an existing one, clone the existing location and update the name, address, and any settings that differ. It copies everything including rates and options.</p>
+<div class="callout callout-info">Location Settings is the shared foundation. Each product then has its own location-level configuration on top. For example, the Permits app has a detailed location view with rates, capacity, and application forms. The Valet product adds Options, Messaging, and Rates & Fees sections. The same location can run multiple products simultaneously.</div>
+</div>
+
+<div id="s-concepts">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:40px">Key Concepts</h2>
+<div class="concept"><strong>Account</strong><span>The person or organization that gets billed for a permit(s). If a company buys 50 parking permits for its employees, the company is the Account. If an individual buys one permit for themselves, they are the Account. Every Account has its own invoices, balance, and self-serve portal.</span></div>
+<div class="concept"><strong>Permit Holder</strong><span>The individual who actually uses the permit. For a personal permit, the Account and Permit Holder are the same person. For a corporate or group account, the company is the Account and each employee is a Permit Holder.</span></div>
+<div class="concept"><strong>Rate</strong><span>A permit product you sell. A Rate defines the price, how often it bills (monthly, quarterly, yearly), how many permits can be sold (capacity), and any rules like whether applicants need to prove residency. One location can have many Rates. For example: "Monthly Unreserved $150/mo" and "Reserved Spot $250/mo" would be two Rates at the same location.</span></div>
+<div class="concept"><strong>Location</strong><span>A physical parking facility: a garage, surface lot, or building. Each Location has its own rates, capacity, and settings. All Oobeo products (Permits, Valet, On-Demand) share the same Location list.</span></div>
+<div class="concept"><strong>Validation</strong><span>A discount or free parking rule applied to a transaction. Used primarily in Valet and On-Demand. Can be a code customers enter, a loyalty discount, a VIP rate, restricted to "locals only" with a comma separated list of zip codes, or configured as a time-based rule (e.g., first 30 minutes free).</span></div>
+<div class="concept"><strong>Share Link</strong><span>A URL you give to customers so they can apply for a permit. Can be sent by email, text, or printed as a QR code on signage. You can scope a Share Link to a specific location and rate so the customer lands directly on the right application form.</span></div>
+<div class="concept"><strong>Management Portal</strong><span>A self-serve web page for each Account. This is where permit holders or Account Billing managers pay invoices, view receipts, manage payment methods, and see their permits. Every Account gets a unique portal link that you can copy and send to them.</span></div>
+</div>
+
+<div style="margin-top:32px;padding:24px;background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:12px;color:#fff">
+<p style="font-size:18px;font-weight:700;margin:0 0 8px">Ready to dive in?</p>
+<p style="color:#94a3b8;margin:0 0 16px;font-size:14px">Pick a product to see everything it offers, from setup and configuration to day-to-day operations.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<button onclick="setProduct('permits')" style="padding:10px 20px;border-radius:8px;border:none;background:#2563eb;color:#fff;font-size:14px;font-weight:600;cursor:pointer">Permits</button>
+<button onclick="setProduct('valet')" style="padding:10px 20px;border-radius:8px;border:none;background:#059669;color:#fff;font-size:14px;font-weight:600;cursor:pointer;opacity:0.4">Valet (Coming Soon)</button>
+<button onclick="setProduct('ondemand')" style="padding:10px 20px;border-radius:8px;border:none;background:#7c3aed;color:#fff;font-size:14px;font-weight:600;cursor:pointer;opacity:0.4">On-Demand (Coming Soon)</button>
+</div>
+</div>
+</div>
+
+<!-- PERMITS SECTION -->
+<div id="s-permits" data-section="permits" style="margin-top:64px;padding-top:32px;border-top:2px solid #e2e8f0">
+<span style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#2563eb;font-weight:700">Permits v2</span>
+<h1 style="font-size:32px;font-weight:700;color:#0f172a;margin:4px 0 8px">Permits</h1>
+<p style="color:#64748b">Recurring parking permits with applications, billing, accounts receivable, and a self-serve customer portal.</p>
+
+<div id="s-p-overview">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:40px">Overview</h2>
+<p>Permits v2 handles the full permit lifecycle: operators configure locations and rates, customers apply through a public portal or share link, operators review and approve, the system generates invoices on a recurring schedule, and customers pay through a self-serve portal. Everything is tracked with a full audit trail.</p>
+<p>The Permits interface is organized around five tabs across the top. Think of these as five different views of the same data:</p>
+<table><tr><th>Tab</th><th>What You'll Use It For</th></tr>
+<tr><td><strong>Accounts</strong></td><td>Looking up an account, checking their balance, taking a payment, or viewing their history. Start here when someone calls in.</td></tr>
+<tr><td><strong>Permits</strong></td><td>Finding a specific permit by ID, plate, or holder name. Checking if a permit is active. Suspending or cancelling.</td></tr>
+<tr><td><strong>Rates</strong></td><td>Seeing how many permits are left to sell at each location. Creating new permit products. Checking pricing.</td></tr>
+<tr><td><strong>Invoices</strong></td><td>Following up on unpaid invoices. Resending invoices. Processing refunds. AR management.</td></tr>
+<tr><td><strong>Locations</strong></td><td>Managing location-level settings like capacity, terms, FAQ, and application forms. Generating share links and QR codes.</td></tr></table>
+<p>Every tab supports <strong>Search</strong>, customizable <strong>Columns</strong>, <strong>Filters</strong>, and <strong>Export</strong>. Your column and filter selections are saved between sessions, so you can set up a view once and it stays.</p>
+<div class="ss"><img src="images/02-accounts-tab.png" alt="Permits dashboard"><div class="cap">The main Permits v2 view. The five tabs are across the top. The summary bar gives you a quick read on total permits, availability, occupancy, pending applications, and waitlist. The "4 Applications" with a View link means four people have applied and are waiting for approval.</div></div>
+</div>
+
+<div id="s-p-locations">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Locations</h2>
+<p>Locations are created in <a href="#s-location-setup" onclick="navTo('s-location-setup',event)">Location Settings</a> (see Platform Overview) and shared across all Oobeo products. The Permits app adds its own location-level configuration on top: capacity, rates, application forms, and permit-specific options.</p>
+<p>The Locations tab is your bird's-eye view of every facility where you sell permits. Each row shows the location name, address, how many active permits are out (Occupancy), the maximum you allow (Capacity), and how many rate products are configured (Rates). If Occupancy is higher than Capacity, you've oversold and should review your limits.</p>
+<p>Click the <strong>...</strong> menu on any row for shortcuts: view the location detail, send an invite link to apply, message all permit holders at this location, grab the application form link, or archive the location.</p>
+<div class="ss"><img src="images/42-locations-tab-actions.png" alt="Locations with actions"><div class="cap">Each location row has an Actions menu for common tasks. "Send Invite" generates a link scoped to this location that you can email or text to someone.</div></div>
+<p>Click a location name to open the detail view. This is where you manage everything specific to permits at this location:</p>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Summary</h3>
+<p>Your at-a-glance dashboard for this location. Total Capacity is the total number of parking permits available for sale (see Options below). Current Occupancy is how many active permits exist right now. Occupancy Rate is the percentage. Below that, you can add Amenities (e.g., "Covered parking", "EV charging") that show on the customer-facing portal, plus Public Notes (visible to customers) and Private Notes (visible only to your team).</p>
+<div class="ss"><img src="images/48-location-summary.png" alt="Summary"><div class="cap">This location has 100 total spaces and 85 active permits, so it's 85% full. The "Enforcement integrations" section at the bottom connects to third-party enforcement and LPR systems.</div></div>
+<div class="callout callout-info">Oobeo integrates with third-party enforcement systems to provide real-time permit validation. When enforcement is configured, the system exposes a list of all valid permits, authorized vehicles, and active paid sessions that enforcement officers or LPR cameras can check against. Configuration is done per location using API credentials (Location ID, Key, and Secret) in the Enforcement section of Location Settings. EnforcePlus is JustPark's own enforcement product but Oobeo works with any third-party enforcement provider that supports API-based permit lookups (e.g., Omnipark, Gtechna, T2). Contact Oobeo support for setup assistance with your specific enforcement provider.</div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Rates</h3>
+<p>All permit products available at this location. Here's what each column means:</p>
+<table><tr><th>Column</th><th>What It Means</th></tr>
+<tr><td>Rate Name</td><td>The name customers see when applying (e.g., "Monthly Unreserved")</td></tr>
+<tr><td>Cost</td><td>Price per billing period</td></tr>
+<tr><td>Interval</td><td>How often the permit bills. M = Monthly, Q = Quarterly, Y = Yearly</td></tr>
+<tr><td>Capacity</td><td>Maximum number of permits that can be sold under this rate</td></tr>
+<tr><td>Available</td><td>How many more permits can be sold before hitting the cap</td></tr>
+<tr><td>Visibility</td><td><strong>Public</strong> means customers can find and apply for this rate on the portal. <strong>Private</strong> (or Restricted) means it only shows if you send someone a direct link or assign it internally. Use Private for employee rates, special pricing, or rates you don't want on the public application form.</td></tr>
+<tr><td>Status</td><td>Active (accepting permits) or Paused (temporarily closed to new sign-ups)</td></tr></table>
+<div class="callout callout-info"><strong>Why does my rate show Private when I set it to Public?</strong> A rate appears Public to customers only when two things are true: (1) the "Public Rate" toggle is on in the rate wizard Step 3, AND (2) the rate's status is Active (not Paused). If either condition is off, the rate won't appear on the public application form. Double-check both settings if customers report they can't find a rate.</div>
+<div class="ss"><img src="images/47-location-rates.png" alt="Rates"><div class="cap">This location has 5 rates, all Private (restricted). Zero are public, so customers can't find them through the Parking Finder or application form without a direct link. You'd make rates Public when you're ready for customers to apply on their own.</div></div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Options</h3>
+<p>Controls that apply to all permits at this location:</p>
+<p><strong>Limit spaces available for permits</strong> — when toggled on, the system enforces a hard cap on the total number of active permits at this location. Once you hit the Max active permits number, no new permits can be sold until one is cancelled. If toggled off, there's no cap and you can oversell.</p>
+<div class="callout callout-info"><strong>Location capacity vs. Rate capacity: these are different things.</strong> The Location capacity (Max active permits here in Options) is the overall cap for this facility. Rate capacity (Total Spaces in the rate wizard) is the cap for one specific rate product. Example: your garage has 100 total spaces (Location = 100). You sell Monthly Unreserved with 80 spaces and Monthly Reserved with 20 spaces (two rates, 80 + 20 = 100). If you see negative quantities on rates or occupancy over 100%, it usually means the rate capacities add up to more than the location capacity, or the location capacity isn't set.</div>
+<p><strong>Physical Permit</strong> — turn this on if you hand out physical hangtags, stickers, or cards in addition to the digital permit.</p>
+<p><strong>Invoice note</strong> — text that appears on every invoice for this location. Use for payment instructions, policy reminders, or contact info.</p>
+<div class="ss"><img src="images/46-location-options.png" alt="Options"><div class="cap">This location has a 100-permit cap enforced. Physical Permits are off. Invoice note is blank but you could add something like "Contact parking@building.com with questions."</div></div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Terms & Conditions / FAQ</h3>
+<p><strong>Terms & Conditions</strong> are shown to customers when they apply for a permit. They must accept before completing their application. Put your parking rules, liability disclaimers, and cancellation policy here.</p>
+<p><strong>FAQ</strong> is shown on the customer-facing location page. Common questions like "Where do I park?", "What happens if I lose my access card?", "How do I cancel?" Use this to reduce inbound questions from permit holders.</p>
+<div class="ss"><img src="images/45-location-terms.png" alt="T&Cs"><div class="cap">Rich text editor for Terms & Conditions. Supports formatting, links, and lists. Whatever you write here, the customer sees and must accept during the application process.</div></div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Application Form</h3>
+<p>This is the link customers use to apply for a permit at this location. Copy it to send by email or text, or click <strong>Download QR</strong> to get a QR code you can print on signage, put in a lobby, or include in onboarding materials. When a customer scans the QR or clicks the link, they land directly on the application form for this location.</p>
+<div class="ss"><img src="images/43-location-appform.png" alt="Application Form"><div class="cap">The application link and QR code. The QR code is downloadable as an image file you can print at any size.</div></div>
+</div>
+
+<div id="s-p-rates">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Rates</h2>
+<div class="callout callout-admin"><span class="badge-admin">Admin</span> &nbsp;Rate creation and editing requires Administrator access. Employees can view rates and check availability but cannot create or modify them.</div>
+<p>A Rate is a permit product you sell. Before you can issue any permits at a location, you need at least one Rate configured. The Rates tab shows all rates across all locations in one view. The key columns:</p>
+<p><strong>Remaining</strong> tells you how many more permits you can sell under this rate before reaching maximum capacity. <strong>Occupancy</strong> is the percentage of capacity used. <strong>Interval</strong> is the billing frequency (M = Monthly, Q = Quarterly). <strong>Schedule</strong> controls when the rate is valid ("Always valid" means no restrictions). <strong>Public</strong> rates are available for customers to discover and select in the application process. Rates that are not public can only be assigned to permit accounts by an administrator.</p>
+<div class="ss"><img src="images/11-rates-tab.png" alt="Rates tab"><div class="cap">The Rates tab across all locations. "BUILDING X TENANT" has 4 of 10 spaces remaining (60% full). The three "Daily Rate" rows at AAA Valet are all public, meaning customers can find them on the application portal.</div></div>
+<p>Click <strong>+ Create Rate</strong> to launch the 4-step wizard:</p>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Step 1: Location & Basic Info</h3>
+<p>Pick which location this rate belongs to. Name it something customers will understand (e.g., "Monthly Unreserved" or "Employee Quarterly"). Set the <strong>Total Spaces</strong>, which is the cap on how many permits can be sold under this rate. <strong>General Ledger Code</strong> is optional and used for accounting exports (e.g., mapping to a revenue code in NetSuite).</p>
+<div class="ss"><img src="images/12-rate-wizard-step1.png" alt="Step 1"><div class="cap">Step 1: The Permit Type (Name) is what your customers see. Total Spaces = 1 would mean only one person can hold this rate at a time.</div></div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Step 2: Pricing & Schedule</h3>
+<p>Set the price. The <strong>Allow Prorations</strong> toggle controls whether a customer who starts mid-cycle gets a prorated first invoice or pays the full amount. For example: if someone buys a $100/month permit on March 15th, prorations on means they pay ~$50 for the rest of March, then $100 starting April. Prorations off means they pay $100 regardless of start date.</p>
+<div class="callout callout-info">Prorations only apply to the first invoice. All subsequent invoices are the full rate amount. Make sure this toggle is set correctly before selling permits. If a customer reports being charged full price when they expected a prorated amount, check this setting on the rate.</div>
+<p><strong>Setup Fee</strong> is a one-time charge added to the first invoice only. Use it for key deposits, access card fees, or administrative charges. It appears as a separate line item on the invoice so the customer sees exactly what they're paying for.</p>
+<p><strong>Invoice Interval</strong> determines billing frequency. Monthly is most common. Quarterly bills every 3 months (e.g., Jan 1, Apr 1, Jul 1, Oct 1). Yearly bills once per year. Seasonal</p>
+<div class="callout callout-info">For Quarterly billing, invoices are generated at the start of each quarter. If a customer's due date looks wrong (e.g., showing April 15 when you expected March 15), check whether the invoice was generated for the current quarter or the next one.</div>
+<p><strong>Schedule Valid Times</strong> lets you restrict when the permit is active. "Always valid" means 24/7 access. Click "Manage Schedules" to see existing schedules or create new ones.</p>
+<div class="ss"><img src="images/49-schedule-list.png" alt="Schedule list"><div class="cap">The schedule library. "Always valid" means no time restrictions. "Custom schedule" means specific hours have been set. You can reuse schedules across multiple rates. Click Edit to modify, or + New Schedule to create one.</div></div>
+<p>To create a schedule, give it a name and set start/end times for each day of the week. Days set to "None" mean the permit is not valid that day. For example, a commuter lot schedule might be Monday through Friday 5:00 AM to 8:00 PM with weekends off.</p>
+<div class="ss"><img src="images/51-schedule-commuter.png" alt="Commuter schedule"><div class="cap">"Commuter lot" schedule: valid Mon-Fri 5:00 AM to 8:00 PM. Saturday and Sunday are set to None, meaning the permit doesn't grant access on weekends. Use this for daytime-only or weekday-only rates.</div></div>
+<div class="ss"><img src="images/50-schedule-new.png" alt="New schedule"><div class="cap">Creating a new schedule. The "Always valid" toggle overrides the per-day settings. Leave it off to set custom hours per day.</div></div>
+<p><strong>Addons</strong> are recurring charges added to every invoice under this rate. Use them for fees that should appear as separate line items: access card rental, EV charging, handling fees, etc. Addons are configured at the account level and selected from a dropdown when creating a rate.</p>
+<div class="ss"><img src="images/13-rate-wizard-step2.png" alt="Step 2"><div class="cap">This rate is $100/month with a $20 setup fee and no prorations. "Always valid" means no time restrictions. No add-ons configured.</div></div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Step 3: Options & Requirements</h3>
+<p>These toggles control who can apply, what information is required, and how the approval process works:</p>
+<table><tr><th>Option</th><th>What It Does</th><th>When to Use It</th></tr>
+<tr><td>Apply Tax</td><td>Adds your configured tax rate to invoices</td><td>Required in most jurisdictions. Check with finance.</td></tr>
+<tr><td>Public Rate</td><td>Customers can find this rate on the application portal</td><td>Turn on when you're ready for self-service sign-ups. Leave off for internal or employee rates.</td></tr>
+<tr><td>Require Proof of Residency</td><td>Applicants must upload proof</td><td>Residential buildings verifying tenants, municipal resident permits.</td></tr>
+<tr><td>Pause Rate</td><td>Stops new applications. Existing permits unaffected.</td><td>Location is full, rate is being restructured, or seasonal shutdown.</td></tr>
+<tr><td>Auto Approve Applicants</td><td>Applications are approved instantly with no manual review</td><td>High-volume public rates where you don't need to vet applicants. Not recommended for restricted or employee rates.</td></tr>
+<tr><td>Require Applicant Address</td><td>Address is mandatory on the application</td><td>Needed for invoicing or for residency-based eligibility.</td></tr>
+<tr><td>Require Unit Number</td><td>Unit/apartment number is mandatory</td><td>Residential properties where you need to tie permits to units.</td></tr>
+<tr><td>Stall Range</td><td>Assign each permit a specific stall number from a range (e.g., 1-100). Auto-assigned at creation. Sales block when all stalls are taken.</td><td>Reserved or assigned parking where each permit maps to a physical space.</td></tr></table>
+<div class="ss"><img src="images/14-rate-wizard-step3.png" alt="Step 3"><div class="cap">This rate has tax enabled but everything else is off, including Public. That means it can only be assigned internally or via a direct link.</div></div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Step 4: Notes</h3>
+<p><strong>Private Notes</strong> are only visible to your staff. Use them for internal reminders like "This rate is for building tenants only, verify lease before approving." <strong>Public Notes</strong> are shown to customers on the application form. Use for things like "Permit valid for levels 3-5 only" or "Access card will be mailed within 3 business days."</p>
+<div class="ss"><img src="images/15-rate-wizard-step4.png" alt="Step 4"><div class="cap">Both note fields support rich text: bold, italic, links, and lists. Private Notes stay internal. Public Notes are customer-facing.</div></div>
+</div>
+
+<div id="s-p-accounts">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Accounts</h2>
+<p>This is usually your starting point when an account holder contacts you. The Accounts tab lists every billing account. Balances in red mean money is owed. Click any row to open the detail view.</p>
+<div class="ss"><img src="images/03-account-detail-overview.png" alt="Account"><div class="cap">Bob Thomas's account: $11 outstanding (151 days past due), 3 unpaid invoices, attributes showing "No late fee" and "1 Vehicles per permit." The red "151 days past due" badge is an immediate signal this account needs attention.</div></div>
+<p>The account detail has five sections in the left sidebar:</p>
+<table><tr><th>Section</th><th>What It's For</th></tr>
+<tr><td>Overview</td><td>The account snapshot. Name, contact info, balance, credits, unpaid invoices with amounts, and account attributes (rules like "No late fee" or vehicle limits). <strong>Take Payment</strong> records a payment. <strong>Add/Subtract Credit</strong> adjusts the account balance. <strong>Archive Account</strong> removes it from active views.</td></tr>
+<tr><td>Activity</td><td>The full audit trail. Every invoice generated, email sent, payment recorded, and change made, with exact timestamps. Check here before escalating a customer issue so you know what's already happened.</td></tr>
+<tr><td>Permits</td><td>All permits under this account. You can <strong>Edit Quantity</strong> inline (e.g., a company wants to go from 10 permits to 15) or click <strong>+ Add Permit</strong> to create a new one tied to this account.</td></tr>
+<tr><td>Management Portal</td><td>The unique link to this account's self-serve portal. Copy it and send it via email or text. The account holder can then pay, view receipts, and manage permits without calling you.</td></tr>
+<tr><td>Notes</td><td>Internal notes with attachments. Use for tracking conversations, special arrangements, or anything the next person handling this account should know.</td></tr></table>
+<div class="ss"><img src="images/28-account-activity.png" alt="Activity"><div class="cap">Activity Log for Bob Thomas: you can see exactly when each invoice was generated and when emails were sent. Use the filter dropdown to narrow to specific event types.</div></div>
+<div class="ss"><img src="images/31-account-portal.png" alt="Portal"><div class="cap">Every account gets a unique portal link. Click "Open Portal" to preview what the customer sees, or "Copy" to grab the link and send it.</div></div>
+</div>
+
+<div id="s-p-permits">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Permits</h2>
+<p>The Permits tab shows every individual permit. This is where you go to check if a specific person's permit is active, look up a license plate, or find permits expiring soon. Columns include the permit ID, location, account, holder name, expiration date, status (Active/Expired/Suspended/Cancelled), and registered license plates.</p>
+<div class="ss"><img src="images/04-permits-tab.png" alt="Permits tab"><div class="cap">The Permits tab. Status colors give you an instant read: green = Active, gray = Expired. Use the search bar to find a permit by plate number, holder name, or permit ID.</div></div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Creating a Permit</h3>
+<p>Click <strong>+ Add Permit</strong> in the top-right corner. The system first asks who the permit is for:</p>
+<p><strong>Existing account</strong> (recommended): search by name or email. If the person already has an account from a previous permit, use this to avoid duplicates.</p>
+<p><strong>New account</strong>: creates a fresh account. You'll enter their name, phone, email, and optionally a separate billing email (useful for corporate accounts where the permit holder and the person who pays are different).</p>
+<div class="ss"><img src="images/37-add-permit-step1.png" alt="Add Permit"><div class="cap">Always check for an existing account first. Duplicate accounts mean split billing history and confused customers.</div></div>
+<p>After selecting or creating the account, you configure the permit itself: pick the <strong>Location</strong> and <strong>Rate</strong> (dropdown shows only rates at that location), set a <strong>Start Date</strong>, and optionally assign a <strong>Space Number</strong> or <strong>Access ID</strong>. The <strong>Permit Holder</strong> and <strong>Vehicles</strong> sections expand if you want to fill them in now, or you can skip and add later.</p>
+<div class="ss"><img src="images/09-permit-edit.png" alt="Details"><div class="cap">The permit details form. Permit Holder and Vehicles are collapsed by default. You can fill these in later if you don't have the vehicle info yet.</div></div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Permit Detail & Actions</h3>
+<p>Click any permit to see its full details: who holds it, which rate it's on, the monthly fee, start and renewal dates, and the four actions you can take:</p>
+<div class="ss"><img src="images/05-permit-detail.png" alt="Detail"><div class="cap">This permit is on the "Test" rate at $1.00/month. The four buttons at the bottom are the only ways to change a permit's status.</div></div>
+<table><tr><th>Action</th><th>What It Does</th><th>When to Use It</th></tr>
+<tr><td>Suspend Permit</td><td>Temporarily deactivates the permit. Can be reactivated later.</td><td>Account holder hasn't paid but you're not ready to cancel. Or account holder requests a temporary hold.</td></tr>
+<tr><td>Cancel at Renewal</td><td>Permit stays active through the current billing period, then stops. No further invoices are generated after the current period ends.</td><td>Customer gives notice. This is the most common cancellation method. The customer keeps parking until their paid period is up.</td></tr>
+<tr><td>Cancel on Date</td><td>Permit cancels on a specific future date you choose.</td><td>Customer needs to park through a specific date (e.g., end of a lease). Choose the exact last day.</td></tr>
+<tr><td>Cancel Immediately</td><td>Permit is cancelled right now. No further invoices.</td><td>Emergency situations, fraud, or customer has already vacated.</td></tr></table>
+<div class="callout callout-info"><strong>What happens after Cancel at Renewal:</strong> The permit remains active and usable until the current billing period ends. After that date, it moves to Expired status and the customer loses access. Any unpaid invoices for the current period are NOT automatically cancelled. You still need to collect on those or manually write them off.</div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Vehicles</h3>
+<p>Each permit tracks registered vehicles. The number of vehicles allowed is set by the rate. Most rates allow 1 vehicle per permit, but some (like household permits) may allow 2 or more. The vehicle record includes license plate, color, make, and type.</p>
+<div class="ss"><img src="images/06-permit-vehicles.png" alt="Vehicles"><div class="cap">"This permit allows 1 vehicle." If the customer gets a new car, update the plate here. If they need a second vehicle, check whether the rate allows it or if they need an additional permit.</div></div>
+</div>
+
+<div id="s-p-invoices">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Invoices</h2>
+<p>Every time a billing period starts, the system generates invoices automatically and emails them to customers. The Invoices tab shows all of them. The most important filter here is <strong>Show Unpaid Only</strong>, which narrows the list to invoices that still have a balance due. This is your AR worklist.</p>
+<div class="ss"><img src="images/16-invoices-tab-unpaid.png" alt="Invoices"><div class="cap">Invoices filtered to Unpaid. The Billing Period column shows what dates this invoice covers. The # of Permits column tells you how many permits are included (corporate accounts may have many). Click any row to open the detail.</div></div>
+<p>Click an invoice to see the full detail: who it's from, who it's billed to, the billing period, fee breakdown, and payment status.</p>
+<div class="ss"><img src="images/19-invoice-detail-fees.png" alt="Invoice detail"><div class="cap">This invoice has two line items: $100 in Parking Fees and $1.00 Convenience Fee. The convenience fee is a surcharge configured at the rate or account level. The five buttons at the bottom are your available actions.</div></div>
+<p>What each action button does:</p>
+<table><tr><th>Button</th><th>When to Use It</th></tr>
+<tr><td>PDF</td><td>Download a PDF to email manually, print, or attach to correspondence.</td></tr>
+<tr><td>Resend</td><td>Customer says they didn't get the invoice. Resend triggers a fresh email to their address on file.</td></tr>
+<tr><td>Recalculate</td><td>The rate or permit details changed after the invoice was generated. Recalculate updates the amounts to match the current configuration.</td></tr>
+<tr><td>Refund</td><td>Customer overpaid or is owed money back. Processes the refund to their payment method on file.</td></tr>
+<tr><td>Edit</td><td>Manually adjust the invoice. Use for one-off corrections, credits, or special arrangements.</td></tr></table>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Common Invoice Situations</h3>
+<p><strong>Making an adjustment:</strong> Use the <strong>Edit</strong> button to modify an invoice amount. If you just need to mark it as resolved without an actual payment (e.g., writing off a small balance or applying a courtesy credit), use Edit to adjust the amount, or go to the Account and use <strong>Add Credit</strong> to offset the balance.</p>
+<p><strong>Cancelled permit but invoice still open:</strong> Cancelling a permit does not automatically void unpaid invoices for the current period. You'll need to manually Edit or Refund the invoice if the customer shouldn't owe for that period.</p>
+<p><strong>Adding permits to an existing account:</strong> If you add permits to an account mid-cycle using Edit Quantity, the system generates a new invoice covering the additional permits. Be aware that the new invoice reflects the updated total, not just the incremental change. Review the invoice to make sure it looks right before sending.</p>
+<p><strong>What customers see on the payment link:</strong> When a customer clicks the payment link from their email, they see the total amount due and a Pay Now button. The payment page does not currently show a line-item breakdown. If customers ask why they owe a certain amount, direct them to their Account Portal where they can View Receipts for the full detail, or resend the itemized invoice PDF.</p>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">AR Workflow</h3>
+<p>A typical accounts receivable cycle:</p>
+<ol style="padding-left:24px"><li>Go to Invoices tab, click <strong>Show Unpaid Only</strong> to see all outstanding balances</li><li>Click into each invoice to see the details and how long it's been unpaid</li><li>Use <strong>Resend</strong> for a first nudge, or <strong>Communications</strong> for a custom message ("Hi Jane, your March invoice is 15 days past due...")</li><li>Check the account's Activity log to see if they've received previous reminders</li><li>If still unresolved, open the permit and use <strong>Suspend Permit</strong> as a next step. The customer's portal will show a "Suspended" warning encouraging them to pay.</li></ol>
+</div>
+
+<div id="s-p-apps">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Applications & Share Links</h2>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Reviewing Applications</h3>
+<p>When someone applies for a permit through a share link or the Parking Finder, their application lands in a review queue. The summary bar at the top of the dashboard shows the count (e.g., "Applications: 4 View"). Click "View" to see pending applications.</p>
+<p>For each application, you can <strong>Approve</strong> (which creates the permit, generates the first invoice, and notifies the customer), <strong>Reject</strong> (sends a rejection notice), or <strong>Request more info</strong> (asks the applicant for additional details before you decide).</p>
+<div class="callout callout-tip">If you don't want to manually review every application, turn on "Auto Approve Applicants" in the rate wizard (Step 3). Applications on that rate will be approved instantly. This is useful for high-volume, general public rates. Don't use it for rates where you need to verify eligibility (employee rates, resident rates, etc.).</div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Share Links</h3>
+<div class="callout callout-admin"><span class="badge-admin">Admin</span> &nbsp;Share Link configuration requires Administrator access.</div>
+<p>Share Links are how you get the application form in front of customers. Three tools in the sidebar:</p>
+<p><strong>Parking Finder</strong> — a branded public search page (vale.to/app/search-parking/) where customers search for locations and apply. Best for: public-facing situations where you want customers to discover available parking on their own. Embed the link on your website, email it to tenants, or include it in move-in packets. You can upload a custom header image to brand it.</p>
+<div class="ss"><img src="images/33-share-links-finder.png" alt="Finder"><div class="cap">The Parking Finder config. Upload a custom image (your building, logo, or parking facility) to brand the search page customers see.</div></div>
+<p><strong>Send Invites</strong> — generate a link scoped to a specific Location and optionally a specific Rate and Account. Best for: inviting a specific person or group to apply for a specific permit type. Example: "Here's a link to apply for the Employee Monthly rate at the Main St garage."</p>
+<div class="ss"><img src="images/34-share-links-invites.png" alt="Invites"><div class="cap">Scope the invite by selecting a Location first, then optionally narrow to a Rate and Account. The more specific you make it, the fewer choices the customer has to make.</div></div>
+<p><strong>Application Form</strong> — generates a reusable application link for a location. Same scoping as Send Invites. You can also get this link (with a downloadable QR code) from the Location detail view, which is often faster.</p>
+</div>
+
+<div id="s-p-comms">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Communications</h2>
+<p>Use Communications to send messages to your permit holders or account holders. Common uses: payment reminders, policy changes, rate increases, holiday hours, construction notices, or renewal reminders.</p>
+<p>It's a two-step wizard:</p>
+<p><strong>Step 1: Select recipients.</strong> Choose whether to target <strong>Account Holders</strong> (the person who pays) or <strong>Permit Holders</strong> (the person who parks). You can filter by tags, search for specific people, or click Select All. The count shows how many recipients you've selected.</p>
+<div class="ss"><img src="images/24-comms-step1.png" alt="Step 1"><div class="cap">Selecting recipients. "Account Holders" targets the billing contact. "Permit Holders" targets the person on the permit. Use tags to segment (e.g., send only to a specific building or rate type).</div></div>
+<p><strong>Step 2: Compose and send.</strong> Choose <strong>Email</strong> or <strong>SMS</strong>, write your message, and send. The character count is shown for SMS (keep under 160 characters for a single text message).</p>
+<div class="ss"><img src="images/25-comms-step2.png" alt="Step 2"><div class="cap">Composing a message. Email allows longer messages. SMS is immediate but limited in length. Choose based on urgency and content.</div></div>
+</div>
+
+<div id="s-p-reports">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Reports</h2>
+<p>The Reports section has pre-built reports for common operational needs. Each report can be opened in-browser or downloaded as CSV.</p>
+<div class="ss"><img src="images/23-reports.png" alt="Reports"><div class="cap">All 10 reports. Click "Open" to view in your browser or the download icon to save. Two reports (End of Day, Refund) are still being built.</div></div>
+<table><tr><th>Report</th><th>When to Run It</th></tr>
+<tr><td>NetSuite Export</td><td>Monthly or as needed. Exports invoice data in a format ready for NetSuite import.</td></tr>
+<tr><td>Expiring Credit Card</td><td>Monthly. Proactively reach out to customers whose cards are about to expire to avoid failed payments.</td></tr>
+<tr><td>Aged Receivables</td><td>Weekly. Your AR aging report: who owes what and how long it's been outstanding.</td></tr>
+<tr><td>Accounts (Active Permits)</td><td>On demand. Full list of accounts that currently have at least one active permit. Good for occupancy audits.</td></tr>
+<tr><td>Cancellations</td><td>Monthly or as needed. See who cancelled, when, and from which rate. Helps spot trends.</td></tr>
+<tr><td>Transactions</td><td>As needed. Every payment that has been processed, with amounts and dates. Use for reconciliation.</td></tr>
+<tr><td>Location Capacity</td><td>Weekly or monthly. An analysis of how much capacity is being utilized at a given location(s).</td></tr>
+<tr><td>Permit Fee</td><td>Monthly. Revenue broken down by rate and location. Your core revenue report.</td></tr></table>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:40px">AR Aging Report</h3>
+<p>The most operationally critical report. Shows every unpaid invoice with how long it's been outstanding. Use this weekly to stay on top of collections.</p>
+<div class="ss"><img src="images/58-report-ar-aging.png" alt="AR Aging Report"><div class="cap">AR Aging Report. Summary line: 82 unpaid invoices, $9,314.65 outstanding. Columns: Account, Invoice Date, Location, Revenue, Past Due (shows exact days, e.g., "7 days and 1 hour", "248 days and 1 hour"), Status (Unpaid), and Details link. Filterable by location and time period. CSV export. Paginated (5 pages). Click "Details" to jump directly to the invoice for follow-up or adjustment.</div></div>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:40px">Location Capacity</h3>
+<p>Your at-a-glance occupancy dashboard across all locations. Shows how full each facility is and how many spaces remain.</p>
+<div class="ss"><img src="images/59-report-location-capacity.png" alt="Location Capacity Report"><div class="cap">Location Capacity report. Portfolio summary: 826 locations, 81,828 total capacity, 29,029 occupied, 52,799 available. Columns: Location (with internal ID), Diamond ID, Active Rates, Capacity, Occupied, Available, Occupancy %. Searchable by location name or ID. Filterable by location and tags. CSV export. Paginated (17 pages). Use this to identify locations approaching capacity and locations with room to sell.</div></div>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:40px">Accounts (Active Permits)</h3>
+<p>Full roster of accounts with at least one active permit. Useful for audits, customer outreach, and verifying occupancy against capacity.</p>
+<div class="ss"><img src="images/60-report-active-permits.png" alt="Accounts Active Permits Report"><div class="cap">Accounts — Active Permits. 7,235 accounts across all locations. Columns: Account (ID or name), Email, Phone, Active Permits count, and Locations (shows all locations where this account holds permits). Filterable by month and location. CSV export. Paginated (145 pages). Accounts with permits at multiple locations show all locations in a single row.</div></div>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:40px">Cancellations</h3>
+<p>Every cancelled permit with the cancellation date, price at time of cancellation, and account. Search for "expiring" to find permits with future cancellation dates.</p>
+<div class="ss"><img src="images/61-report-cancellations.png" alt="Cancellations Report"><div class="cap">Cancellations report. 29,353 cancelled permits. Columns: Name (permit holder), Location, Account, Price, Cancellation Date, Status, and View link. Searchable by name, location, or account. Tip: search "expiring" to find permits scheduled for future cancellation. Filterable by location. CSV export. Paginated (588 pages). Click "View" to open the full permit record.</div></div>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:40px">Transactions</h3>
+<p>Every payment processed through Oobeo Permits, with the full audit trail. Use this for reconciliation against your merchant account or accounting system.</p>
+
+<div class="ss"><img src="images/62-report-transactions.png" alt="Permit Transactions Report"><div class="cap">Permit Transactions report. Summary line shows transaction count, total dollar amount, and date range. Columns: Date/Time (with transaction ID, e.g., Txn #6776), Name (the account name associated with this payment), Method (payment type and reference, e.g., Check #1234), Invoice (full invoice number with external link icon), and Total. Filterable by date range, location, and tags. Searchable by name, invoice number, method, or transaction ID. CSV export. Paginated.</div></div>
+
+<h3 style="font-size:18px;font-weight:700;color:#334155;margin-top:40px">Permit Fee Report</h3>
+<p>Your core revenue report. Shows every rate across every location with pricing details. Use this monthly to review rate inventory, spot pricing inconsistencies, and verify GL code assignments.</p>
+
+<div class="ss"><img src="images/63-report-permit-fees.png" alt="Permit Fee Report"><div class="cap">Permit Fee Report. 3,711 rates across all locations. Columns: Location (facility name or code), Rate Name (with rate ID), Public (Yes/No, whether the rate appears on the application form), Status (Active/Paused), Max Qty (capacity cap per rate), Base Price, Total Price (base plus any addons), GL Code (for accounting system mapping), and Add-ons at Location. Searchable by rate name or location. Filterable by location. CSV export. Paginated (75 pages). Use this to audit rate pricing across your portfolio and ensure GL codes are correctly assigned before month-end close.</div></div>
+
+<p>In addition to these reports, every tab in the Permits app (Accounts, Permits, Rates, Invoices, Locations) has an <strong>Export</strong> button. Set up any filter or column combination, then click Export to get exactly what's on screen as a downloadable file.</p>
+</div>
+
+<div id="s-p-tips">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b;margin-top:48px">Tips for Operators</h2>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;gap:10px;padding:12px 14px;background:#f8fafc;border-radius:8px"><span style="color:#94a3b8;flex-shrink:0">&#8594;</span><div><strong>Send the Management Portal link.</strong> <span style="color:#64748b">Every account has one. Let customers self-serve payments and receipts.</span></div></div>
+<div style="display:flex;gap:10px;padding:12px 14px;background:#f8fafc;border-radius:8px"><span style="color:#94a3b8;flex-shrink:0">&#8594;</span><div><strong>Use the Location actions menu.</strong> <span style="color:#64748b">The ... menu gives quick access to Send Invite, Communicate, and Application Form.</span></div></div>
+<div style="display:flex;gap:10px;padding:12px 14px;background:#f8fafc;border-radius:8px"><span style="color:#94a3b8;flex-shrink:0">&#8594;</span><div><strong>Check the audit trail first.</strong> <span style="color:#64748b">Activity logs on accounts and permits track everything with timestamps.</span></div></div>
+<div style="display:flex;gap:10px;padding:12px 14px;background:#f8fafc;border-radius:8px"><span style="color:#94a3b8;flex-shrink:0">&#8594;</span><div><strong>Exports respect filters.</strong> <span style="color:#64748b">Filter a tab, customize columns, then Export. You get exactly what's on screen.</span></div></div>
+</div>
+</div>
+
+<!-- PERMITS: Customer Guide -->
+<div id="s-p-customer" style="margin-top:48px;padding-top:32px;border-top:1px solid #e2e8f0">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b">Customer Guide</h2>
+<p style="color:#64748b;font-style:italic;margin-bottom:20px">This section is written for the people who park in your facilities. You can share this directly with customers or use it as a reference when walking them through the system.</p>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Finding Parking</h3>
+<p>There are three ways to find and apply for a permit:</p>
+
+<p><strong>Parking Finder:</strong> Your operator may have a search page where you type in a location and see what's available. If you received a link to "Find & Buy Parking," this is it.</p>
+
+<p><strong>Share link or QR code:</strong> Your operator may send you a direct link by email or text, or you might scan a QR code on a sign in the parking facility. These links often take you straight to the right location and rate.</p>
+
+<p><strong>From your portal:</strong> If you already have an account, your Account Portal has a "Find Permits" button at the bottom to search for additional permits.</p>
+
+<div class="ss"><img src="images/64-app-finder-results.png" alt="Parking Finder search results"><div class="cap">The Parking Finder. Search by city or address to see available locations on a map with price pins. Each listing shows the location name, address, walking distance, and starting price. Operator-branded (Diamond Parking logo here). Filter by billing interval (Monthly shown). Click "View" to see location details.</div></div>
+
+<div class="ss"><img src="images/65-app-finder-detail.png" alt="Parking Finder location detail"><div class="cap">Location detail panel. Shows the full location name, address, walking distance, monthly price "plus fees," a Street View photo, and a directions link. The map highlights the selected location. Click "Apply now" to start the permit application.</div></div>
+
+<h3 id="s-p-app-experience" style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Applying for a Permit</h3>
+<p>Whether you arrive from the Parking Finder, a Share Link, or a QR code, the application starts with a landing page showing the location, available rates, and a "Begin Application" button. From there, the wizard walks you through five steps.</p>
+
+<div class="ss"><img src="images/66-app-landing.png" alt="Application landing page"><div class="cap">Application landing page. White-labeled with the operator's branding (Springfield, Oregon here). Shows "Apply for Parking Permit" with the location name, address, and a map. Available Permit Options lists each rate with price, fees, billing interval, hours, and days. Click "Begin Application" to start. FAQ and contact links at the bottom.</div></div>
+
+<div class="ss"><img src="images/67-app-step1.png" alt="Step 1: Permit Details"><div class="cap">Step 1 of 5: Permit Details. The selected rate is shown at top with a "Change" link to go back. Choose the number of permits (individuals select 1; companies select more). Pick a start date using the quick-select buttons (which adapt to the billing interval: monthly rates show months, quarterly rates show quarters) or choose a custom date. The date picker defaults to the start of the current period.</div></div>
+
+<div class="ss"><img src="images/68-app-step2.png" alt="Step 2: Vehicle Information"><div class="cap">Step 2 of 5: Vehicle Information. Enter your license plate number, make, model, and color. The "I'll provide vehicle details later" checkbox lets you skip this step and add vehicle information after your permit is approved. This is useful if you don't have your plate number handy or if your company is assigning vehicles after approval.</div></div>
+
+<div class="ss"><img src="images/69-app-step3.png" alt="Step 3: Personal Details"><div class="cap">Step 3 of 5: Personal Details. Contact information: full name, phone number (with country selector), mailing address. Additional details: email address, which becomes your login for managing permits. This information creates your Account in the system.</div></div>
+
+<div class="ss"><img src="images/70-app-step4.png" alt="Step 4: Documentation"><div class="cap">Step 4 of 5: Documentation. Optional or required depending on the operator's configuration. Upload supporting documents like proof of residency, a lease agreement, or employee badge. Accepts PDF, PNG, and JPG up to 5MB. Some operators skip this step entirely; others make it mandatory for certain rates.</div></div>
+
+<div class="ss"><img src="images/71-app-step5.png" alt="Step 5: Review & Terms"><div class="cap">Step 5 of 5: Review & Terms. Full summary of your application: permit details (rate, start date), contact information, and any uploaded documents. "Put a card on file for automatic payments" checkbox enables autopay for recurring invoices. Terms acceptance is required before submitting. Click "Submit Application" to send your application to the operator for review.</div></div>
+
+<div class="callout callout-info"><strong>What happens after you submit?</strong> Your application goes to the operator for review. You'll receive an email when it's approved, rejected, or if more information is needed. Once approved, the system creates your Account and first invoice, and you'll get access to the Account Portal below to manage your permit going forward.</div>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Your Account Portal</h3>
+<p>Once your permit application is approved, you get access to your Account Management portal. This is your self-serve hub. Everything you need is here.</p>
+
+<div class="ss"><img src="images/52-portal-paid.png" alt="Account Management Portal - Paid"><div class="cap">The Account Management portal for a customer in good standing. Shows the operator name (Diamond Parking), customer name and email, permit count and location (10 permits at E0054 - Pocket Lot). Three action buttons: View Receipts, Manage Permits, Payment Methods. Status: "You're all paid up!" with next invoice date. "Need More Permits?" CTA at bottom links to the permit finder for this operator's locations.</div></div>
+
+<p>The portal shows your permit count per location. If you have permits at multiple locations, each location appears as a separate badge. The three core actions are:</p>
+
+<table><tr><th>Action</th><th>What It Does</th></tr>
+<tr><td><strong>View Receipts</strong></td><td>Lists all payment receipts with dates and amounts. Click any receipt to see the full branded invoice with line-item breakdown.</td></tr>
+<tr><td><strong>Manage Permits</strong></td><td>Shows your active permits with plate assignments, start/end dates, and status. Includes quick KPI cards: Permits with Plates, Available Plates, and Today's Date.</td></tr>
+<tr><td><strong>Payment Methods</strong></td><td>Add, update, or remove credit cards and bank accounts. The card on file is used for recurring invoice payments.</td></tr></table>
+
+<div class="ss"><img src="images/55-portal-balance-due.png" alt="Account Management Portal - Balance Due"><div class="cap">The same portal for a customer with an outstanding balance. "Balance Due $915.00" in red with a "Past Due" badge and prominent red "Pay Now" button. This account has permits at two locations (13 permits at 1041, 2 permits at E708 Ambrosia). The customer sees their total balance and can pay immediately.</div></div>
+
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Viewing Receipts & Invoices</h3>
+<p>Click <strong>View Receipts</strong> to see your payment history. Each receipt shows the payment date and amount. Click any receipt to open the full invoice detail.</p>
+
+<div class="ss"><img src="images/53-portal-receipts.png" alt="Payment Receipts list"><div class="cap">Payment Receipts list. Two receipts shown with dates and amounts ($90.00 each). "Payment Support" section at the bottom shows the operator's contact information (name, phone, email, address) for billing questions. Click any receipt row to see the full invoice breakdown.</div></div>
+
+<div class="ss"><img src="images/54-portal-invoice.png" alt="Invoice detail"><div class="cap">A single invoice receipt branded with the operator's logo (Diamond Parking). Shows Payment Date, Payment Method (credit card last four digits), Invoice Ref #, Invoice Period (3/1/2026 - 3/31/2026), and a line-item breakdown: Parking Fees ($60.00) plus per-permit Account Fees ($3.00 each, five permits = $15.00) for a Total of $72.00. The operator's address appears at the bottom.</div></div>
+
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Managing Your Permits</h3>
+<p>Click <strong>Manage Permits</strong> to see your active permits and plate assignments.</p>
+
+<div class="ss"><img src="images/56-portal-manage-permits.png" alt="Manage Permits - Detailed view"><div class="cap">Manage Permits in Detailed view. KPI cards at top: "1/2 Permits with Plates" (how many of your permits have a license plate assigned), "0 Available Plates" (plates you can still assign), and "Apr 5 Today's Date." Each permit shows the holder's name, status (Active), start and end dates, and a "Missing info" warning if a plate hasn't been assigned yet. Expand any permit row with the arrow to see and edit details.</div></div>
+
+<p>Toggle to <strong>Quick assign</strong> to see a two-column drag-and-drop interface for rapid plate assignment across multiple permits.</p>
+
+<div class="ss"><img src="images/57-portal-quick-assign.png" alt="Manage Permits - Quick Assign"><div class="cap">Quick Assign view. Left column: Permits (searchable list showing permit number, holder name, and vehicle slot). Right column: License Plates (enter a plate and click "+ Add"). Drag plates from the right column onto permit vehicle slots on the left. Permit A181818 shows "No plate assigned." Permit Z735921 has a plate assigned (outlined in red, removable with the X button). "Save Plate Assignments" button at the bottom commits all changes at once.</div></div>
+
+<div class="callout callout-info">Quick Assign is designed for group account managers who need to assign or rotate plates across many permits at once. Add all your plates on the right side, then drag them onto the correct permits on the left. You can unassign a plate by clicking the X, then reassign it to a different permit. Nothing is saved until you click "Save Plate Assignments," so you can rearrange freely before committing. The "Permits with Plates" KPI at the top updates in real time as you assign.</div>
+
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Paying</h3>
+<p>Click <strong>Pay Now</strong> from your portal, or click the payment link in your invoice email. The payment page shows what you owe and lets you pay immediately.</p>
+<div class="ss"><img src="images/41-customer-payment.png" alt="Payment"><div class="cap">The payment page. It shows the invoice period and total due. Click "Pay now" to enter your payment information.</div></div>
+<table><tr><th>Method</th><th>How</th></tr><tr><td>Credit Card / ACH</td><td>Pay online through your portal or invoice link. Fastest option.</td></tr><tr><td>Cash / Check</td><td>Pay in person at the facility or mail a check. Your operator will record the payment in the system, and your portal will update.</td></tr></table>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Need Help?</h3>
+<p>For questions about your permit, billing, vehicle changes, or cancellations, contact your parking operator directly. Their contact information is in your invoice emails and on the Parking Finder page.</p>
+<h3 style="font-size:18px;font-weight:600;color:#334155;margin-top:24px">Things to Know</h3>
+<p><strong>You can't edit your own account info from the portal.</strong> If you need to change your name, email, phone number, or address, contact your parking operator and they'll update it for you.</p>
+<p><strong>When paying online, you pay the full balance due.</strong> The payment page shows your total across all unpaid invoices. You can't select individual invoices to pay separately.</p>
+<p><strong>The payment link in your email shows the total, not a line-item breakdown.</strong> To see a detailed breakdown of what you owe, log into your Account Portal and click View Receipts, or ask your operator to resend the invoice PDF.</p>
+</div>
+
+<!-- PERMITS: FAQ -->
+<div id="s-p-faq" style="margin-top:48px;padding-top:32px;border-top:1px solid #e2e8f0">
+<h2 style="font-size:24px;font-weight:700;color:#1e293b">FAQ</h2>
+<h4 style="font-size:16px;font-weight:600;color:#475569;margin-top:24px">Rates & Configuration</h4>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">What's the difference between Location capacity and Rate capacity?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Location capacity (set in Location > Options > Max active permits) is the total cap for the entire facility. Rate capacity (set in Total Spaces when creating a rate) is the cap for that one rate product. You can have multiple rates at one location whose capacities add up to the location cap. See the Locations > Options section for details.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">Why does my rate show as Private when I set it to Public?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Two things must be true for a rate to appear on the public application form: the "Public Rate" toggle must be on (Rate wizard Step 3), AND the rate must be Active (not Paused). Check both settings.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">How do I set up auto-approval?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">In the rate wizard Step 3 (Options & Requirements), toggle on "Auto Approve Applicants." Applications under that rate will be approved and activated immediately with no manual review.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">Why didn't proration work on a mid-month permit?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Check whether "Allow Prorations" is toggled on for that rate (Rate wizard Step 2). If it's off, the customer pays full price regardless of when they start. Prorations only apply to the first invoice.</p></details>
+
+<h4 style="font-size:16px;font-weight:600;color:#475569;margin-top:24px">Accounts & Permits</h4>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">How do I cancel a permit?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Open the permit detail. Four options: Suspend (temporary, reversible), Cancel at Renewal (active until period ends), Cancel on Date (pick a date), or Cancel Immediately. Most common is Cancel at Renewal.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">I cancelled a permit but the invoice is still open. Is that right?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Yes. Cancelling a permit does not automatically void the current period's invoice. If the customer shouldn't owe for that period, you need to manually Edit or Refund the invoice.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">How do I record a cash or check payment?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Open the Account detail and click Take Payment, or open the specific invoice. Select the payment method and record the amount.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">How do I adjust an invoice amount?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Open the invoice and click Edit to change the amount. You can also go to the Account and use Add/Subtract Credit to offset a balance without modifying the invoice itself.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">Why is occupancy over 100%?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">More active permits exist than the capacity allows. This happens when the "Limit spaces" toggle is off in Location > Options, or when rate capacities weren't aligned with the location cap. Review both the location-level and rate-level capacity settings.</p></details>
+
+<h4 style="font-size:16px;font-weight:600;color:#475569;margin-top:24px">Customers</h4>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">How do I pay my balance?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Click Pay Now on your Account Portal, or use the payment link in your invoice email. Both take you to a payment page where you can pay by credit card.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">Can I pay just one invoice instead of my full balance?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Currently, the payment page shows your total balance due. You cannot select individual invoices to pay separately. If you need to make a partial payment, contact your parking operator.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">How do I change my vehicle?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Contact your parking operator. They can update the vehicle on your permit from the admin dashboard. You cannot change vehicle information from the customer portal.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">How do I update my name, email, or address?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">Contact your parking operator. Account information can only be edited by the operator from the admin dashboard. You cannot edit your own account details from the portal.</p></details>
+<details style="border:1px solid #e2e8f0;border-radius:8px;margin:8px 0"><summary style="padding:12px 16px;cursor:pointer;font-weight:500">Why doesn't my payment link show what I'm paying for?</summary><p style="padding:0 16px 12px;color:#64748b;font-size:14px">The payment page shows your total due but not a line-item breakdown. For the detailed breakdown, check your Account Portal under View Receipts, or ask your operator to resend the invoice as a PDF.</p></details>
+</div>
+</div><!-- end Permits -->
+
+<!-- VALET -->
+<div id="s-valet" data-section="valet" style="margin-top:64px;padding-top:32px;border-top:2px solid #e2e8f0;display:none">
+<span style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#059669;font-weight:700">Valet</span>
+<h1 style="font-size:32px;font-weight:700;color:#0f172a;margin:4px 0 8px">Valet</h1>
+<div id="s-v-overview"></div>
+<div style="margin:40px 0;padding:48px 32px;background:#f1f5f9;border-radius:12px;text-align:center">
+<p style="font-size:20px;font-weight:700;color:#94a3b8;margin:0 0 8px">Coming Soon</p>
+<p style="font-size:14px;color:#94a3b8;margin:0">The Valet section is under development and will be available in a future release of this guide.</p>
+</div>
+</div>
+
+<!-- ON-DEMAND -->
+<div id="s-ondemand" data-section="ondemand" style="margin-top:64px;padding-top:32px;border-top:2px solid #e2e8f0;display:none">
+<span style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#7c3aed;font-weight:700">On-Demand</span>
+<h1 style="font-size:32px;font-weight:700;color:#0f172a;margin:4px 0 8px">On-Demand</h1>
+<div id="s-od-overview"></div>
+<div style="margin:40px 0;padding:48px 32px;background:#f1f5f9;border-radius:12px;text-align:center">
+<p style="font-size:20px;font-weight:700;color:#94a3b8;margin:0 0 8px">Coming Soon</p>
+<p style="font-size:14px;color:#94a3b8;margin:0">The On-Demand section is under development and will be available in a future release of this guide.</p>
+</div>
+</div>
+
+
+<div style="margin-top:80px;padding:16px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;text-align:center;font-size:13px;color:#94a3b8">
+Oobeo User Guide &middot; v1.0 &middot; Permits
+</div>
+</div>
+</main>
+</div>
+
+<script>
+const navData={platform:[{id:'s-platform',label:'Platform Overview',children:[{id:'s-what-is',label:'What Is Oobeo?'},{id:'s-logging-in',label:'Logging In'},{id:'s-location-setup',label:'Location Settings'},{id:'s-concepts',label:'Key Concepts'}]}],permits:[{id:'s-p-overview',label:'Overview',children:[]},{id:'s-p-locations',label:'Locations',children:[]},{id:'s-p-rates',label:'Rates',children:[]},{id:'s-p-accounts',label:'Accounts',children:[]},{id:'s-p-permits',label:'Permits',children:[]},{id:'s-p-invoices',label:'Invoices',children:[]},{id:'s-p-apps',label:'Applications & Share Links',children:[]},{id:'s-p-comms',label:'Communications',children:[]},{id:'s-p-reports',label:'Reports',children:[]},{id:'s-p-tips',label:'Tips',children:[]},{id:'s-p-customer',label:'Customer Guide',children:[{id:'s-p-app-experience',label:'The Application Experience'}]},{id:'s-p-faq',label:'FAQ',children:[]}],valet:[{id:'s-v-overview',label:'Coming Soon',children:[]}],ondemand:[{id:'s-od-overview',label:'Coming Soon',children:[]}]};
+let currentProduct='permits',activeId='s-platform';
+let initialLoad=true;
+function setProduct(p){currentProduct=p;['permits','valet','ondemand'].forEach(k=>{document.getElementById('ptab-'+k).className='ptab '+(k===p?'active-'+k:'inactive');document.querySelectorAll('[data-section="'+k+'"]').forEach(el=>{el.style.display=k===p?'':'none'})});document.getElementById('topbar-title').textContent=p==='permits'?'Permits v2':p==='valet'?'Valet':'On-Demand';if(initialLoad){activeId='s-platform';initialLoad=false}else{const firstSection=navData[p][0].id;activeId=firstSection;setTimeout(()=>{const el=document.getElementById(firstSection);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},50)}buildNav()}
+function buildNav(){const nav=document.getElementById('nav');const items=[...navData.platform,...navData[currentProduct]];const colors={permits:'#2563eb',valet:'#059669',ondemand:'#7c3aed'};const labels={permits:'Permits v2',valet:'Valet',ondemand:'On-Demand'};let html='';items.forEach((item,idx)=>{if(idx===navData.platform.length)html+=`<div style="margin:12px 0 8px;padding:8px 14px 0;border-top:1px solid #334155"><span style="font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:${colors[currentProduct]};font-weight:700">${labels[currentProduct]}</span></div>`;const isActive=activeId===item.id||(item.children&&item.children.some(c=>c.id===activeId));html+=`<a href="#${item.id}" onclick="navTo('${item.id}',event)" class="nav-section ${isActive?'active':''}">${item.label}</a>`;if(isActive&&item.children&&item.children.length){html+=`<div style="margin:4px 0 8px 16px;padding-left:12px;border-left:2px solid #334155;display:flex;flex-direction:column;gap:2px">`;item.children.forEach(c=>{html+=`<a href="#${c.id}" onclick="navTo('${c.id}',event)" class="nav-child ${c.id===activeId?'active':''}">${c.label}</a>`});html+='</div>'}});nav.innerHTML=html}
+function navTo(id,e){if(e)e.preventDefault();activeId=id;buildNav();const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+document.addEventListener('click',function(e){if(e.target.tagName==='IMG'&&e.target.closest('.ss'))window.open(e.target.src,'_blank')});
+let ticking=false;document.getElementById('main').addEventListener('scroll',function(){if(!ticking){window.requestAnimationFrame(function(){const items=[...navData.platform,...navData[currentProduct]];const allIds=[];items.forEach(i=>{allIds.push(i.id);if(i.children)i.children.forEach(c=>allIds.push(c.id))});let current=allIds[0];for(const id of allIds){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<120)current=id}if(current!==activeId){activeId=current;buildNav()}ticking=false});ticking=true}});
+setProduct('permits');
+
+// Search functionality
+(function(){
+const searchInput=document.getElementById('search-input');
+const searchResults=document.getElementById('search-results');
+let searchIndex=[];
+
+function buildSearchIndex(){
+searchIndex=[];
+const products=['platform','permits','valet','ondemand'];
+const productLabels={platform:'Platform',permits:'Permits',valet:'Valet',ondemand:'On-Demand'};
+products.forEach(prod=>{
+const sections=document.querySelectorAll(prod==='platform'?'[data-section="platform"]':'[data-section="'+prod+'"]');
+if(!sections.length&&prod==='platform'){
+const el=document.getElementById('s-platform');
+if(el)indexElement(el,'platform',productLabels.platform);
+return;
+}
+sections.forEach(sec=>{indexElement(sec,prod,productLabels[prod])});
+});
+}
+
+function indexElement(container,product,productLabel){
+const blocks=container.querySelectorAll('h2,h3,h4,p,.cap,summary,td');
+blocks.forEach(block=>{
+const text=block.textContent.trim();
+if(!text||text.length<8)return;
+let sectionEl=block.closest('[id]');
+if(!sectionEl)sectionEl=container;
+const heading=findNearestHeading(block);
+searchIndex.push({text:text.substring(0,300),sectionId:sectionEl.id||container.id,product:product,productLabel:productLabel,heading:heading});
+});
+}
+
+function findNearestHeading(el){
+let node=el.previousElementSibling;
+let parent=el.parentElement;
+for(let i=0;i<20&&parent;i++){
+if(node){
+if(node.tagName&&node.tagName.match(/^H[2-4]$/))return node.textContent.trim();
+node=node.previousElementSibling;
+}else{
+node=parent;parent=parent.parentElement;
+if(node.tagName&&node.tagName.match(/^H[2-4]$/))return node.textContent.trim();
+node=node.previousElementSibling;
+}
+}
+return '';
+}
+
+function doSearch(query){
+if(!searchIndex.length)buildSearchIndex();
+if(query.length<2){searchResults.style.display='none';return}
+const terms=query.toLowerCase().split(/\s+/);
+const matches=[];
+const seen=new Set();
+searchIndex.forEach(item=>{
+const lower=item.text.toLowerCase();
+const allMatch=terms.every(t=>lower.includes(t));
+if(allMatch){
+const key=item.sectionId+'|'+item.heading;
+if(!seen.has(key)){
+seen.add(key);
+const idx=lower.indexOf(terms[0]);
+const start=Math.max(0,idx-30);
+const end=Math.min(item.text.length,idx+terms[0].length+60);
+let snippet=(start>0?'...':'')+item.text.substring(start,end)+(end<item.text.length?'...':'');
+matches.push({snippet:snippet,sectionId:item.sectionId,product:item.product,productLabel:item.productLabel,heading:item.heading||item.sectionId});
+}
+}
+});
+if(!matches.length){
+searchResults.innerHTML='<div style="padding:12px 16px;color:#94a3b8;font-size:13px">No results found</div>';
+searchResults.style.display='block';
+return;
+}
+const colors={platform:'#475569',permits:'#2563eb',valet:'#059669',ondemand:'#7c3aed'};
+let html='';
+matches.slice(0,12).forEach(m=>{
+const highlighted=highlightTerms(m.snippet,terms);
+html+=`<div class="search-hit" onmousedown="searchNav('${m.sectionId}','${m.product}')" style="padding:10px 16px;cursor:pointer;border-bottom:1px solid #f1f5f9;transition:background .1s">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">
+<span style="font-size:11px;font-weight:600;color:${colors[m.product]};text-transform:uppercase;letter-spacing:.5px">${m.productLabel}</span>
+<span style="font-size:12px;color:#94a3b8">${m.heading.substring(0,40)}</span>
+</div>
+<div style="font-size:13px;color:#475569;line-height:1.4">${highlighted}</div>
+</div>`;
+});
+if(matches.length>12)html+=`<div style="padding:8px 16px;color:#94a3b8;font-size:12px;text-align:center">${matches.length-12} more results...</div>`;
+searchResults.innerHTML=html;
+searchResults.style.display='block';
+}
+
+function highlightTerms(text,terms){
+let result=text;
+terms.forEach(t=>{
+const re=new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+result=result.replace(re,'<mark style="background:#fef08a;padding:0 1px;border-radius:2px">$1</mark>');
+});
+return result;
+}
+
+window.searchNav=function(sectionId,product){
+searchResults.style.display='none';
+searchInput.value='';
+if(product!=='platform'&&product!==currentProduct){
+setProduct(product);
+}
+setTimeout(()=>{
+activeId=sectionId;
+buildNav();
+const el=document.getElementById(sectionId);
+if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+},100);
+};
+
+searchInput.addEventListener('input',function(){doSearch(this.value)});
+searchInput.addEventListener('keydown',function(e){
+if(e.key==='Escape'){this.value='';searchResults.style.display='none';this.blur()}
+});
+})();
+</script>
+</body>
+</html>
